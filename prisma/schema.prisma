@@ -1,0 +1,79 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Clinic {
+  id          String        @id @default(cuid())
+  slug        String        @unique
+  name        String
+  area        String
+  address     String
+  phone       String
+  services    String
+  distanceKm  Float
+  inventories Inventory[]
+  requests    StockRequest[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model Medicine {
+  id          String        @id @default(cuid())
+  slug        String        @unique
+  name        String
+  category    String
+  form        String
+  inventories Inventory[]
+  requests    StockRequest[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model Inventory {
+  id          String       @id @default(cuid())
+  clinicId    String
+  medicineId  String
+  quantity    Int
+  status      StockStatus
+  updatedNote String?
+  updatedAt   DateTime     @updatedAt
+  clinic      Clinic       @relation(fields: [clinicId], references: [id], onDelete: Cascade)
+  medicine    Medicine     @relation(fields: [medicineId], references: [id], onDelete: Cascade)
+
+  @@unique([clinicId, medicineId])
+}
+
+model StockRequest {
+  id                String               @id @default(cuid())
+  clinicId          String
+  medicineId        String
+  quantityRequested Int
+  status            StockRequestStatus
+  note              String?
+  createdAt         DateTime             @default(now())
+  updatedAt         DateTime             @updatedAt
+  clinic            Clinic               @relation(fields: [clinicId], references: [id], onDelete: Cascade)
+  medicine          Medicine             @relation(fields: [medicineId], references: [id], onDelete: Cascade)
+}
+
+enum StockStatus {
+  IN_STOCK
+  LOW_STOCK
+  OUT_OF_STOCK
+}
+
+enum StockRequestStatus {
+  PENDING
+  APPROVED
+  REVIEWING
+}
