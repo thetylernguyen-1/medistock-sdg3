@@ -1,3 +1,4 @@
+import { DemoInventoryBadge } from "@/components/cards/demo-inventory-badge";
 import { RequestFormPreview } from "@/components/forms/request-form-preview";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { stockRequests } from "@/data/mock-data";
@@ -10,13 +11,16 @@ export default function RequestMedicinePage() {
         <div className="space-y-2">
           <h1 className="text-3xl font-semibold tracking-tight text-slate-950">Request Medicine</h1>
           <p className="text-slate-600">
-            Track simple resupply requests between facilities without adding complex
-            workflow or patient data.
+            Track simple resupply requests between Kenya sample facilities without
+            adding complex workflow or patient data.
           </p>
         </div>
         <Card className="border-slate-200 bg-white/95 shadow-sm">
           <CardHeader>
-            <CardTitle>Recent requests</CardTitle>
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <CardTitle>Recent requests</CardTitle>
+              <DemoInventoryBadge />
+            </div>
           </CardHeader>
           <CardContent className="space-y-4">
             {stockRequests.map((request) => (

@@ -15,11 +15,11 @@ export function SiteHeader() {
             </div>
             <div>
               <p className="text-lg font-semibold text-slate-900">MediStock</p>
-              <p className="text-sm text-slate-500">Medicine access visibility</p>
+              <p className="text-sm text-slate-500">Kenya health access and demo supply navigator</p>
             </div>
           </Link>
           <div className="hidden rounded-full border border-teal-100 bg-teal-50 px-3 py-1 text-sm text-teal-800 sm:block">
-            SDG 3 hackathon prototype
+            SDG 3 healthcare access navigator
           </div>
         </div>
         <nav className="flex flex-wrap gap-2">

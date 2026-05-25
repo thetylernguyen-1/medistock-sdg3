@@ -17,8 +17,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MediStock",
-  description: "A calm healthcare inventory visibility app for clinics and citizens.",
+  title: "MediStock | Kenya health access and demo supply navigator",
+  description: "A calm Kenya-focused healthcare access navigator that helps users identify facilities, compare services, and understand demo medicine supply signals.",
 };
 
 export default function RootLayout({

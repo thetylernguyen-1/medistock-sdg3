@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { MedicalDisclaimer } from "@/components/cards/medical-disclaimer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -8,8 +10,8 @@ export default function EducationPage() {
       <div className="space-y-2">
         <h1 className="text-3xl font-semibold tracking-tight text-slate-950">Education</h1>
         <p className="max-w-3xl text-slate-600">
-          Plain-language guidance to help citizens and clinic teams use inventory
-          information responsibly.
+          Plain-language guidance to help citizens and clinic teams use Kenya facility
+          context and demo inventory information responsibly.
         </p>
       </div>
 
@@ -56,6 +58,23 @@ export default function EducationPage() {
           </Card>
         </TabsContent>
       </Tabs>
+
+      <Card className="border-slate-200 bg-white/95 shadow-sm">
+        <CardHeader>
+          <CardTitle>How to read the Kenya demo</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3 text-sm leading-7 text-slate-600">
+          <p>Facility locations are based on open Kenya health-facility mapping data.</p>
+          <p>Medicine names are based on essential medicine concepts, but stock counts are simulated for demonstration only.</p>
+          <p>
+            Visit the{" "}
+            <Link href="/data-sources" className="font-medium text-teal-700 hover:text-teal-900">
+              Data Sources
+            </Link>{" "}
+            page for the full explanation of what is real, what is demo-only, and what is not medical advice.
+          </p>
+        </CardContent>
+      </Card>
 
       <MedicalDisclaimer />
     </div>

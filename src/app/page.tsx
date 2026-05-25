@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { ArrowRight, CircleAlert, Hospital, PackageSearch, Pill } from "lucide-react";
 
+import { DemoInventoryBadge } from "@/components/cards/demo-inventory-badge";
 import { StatCard } from "@/components/cards/stat-card";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { buttonVariants } from "@/components/ui/button";
-import { clinics, dashboardMetrics, medicines } from "@/data/mock-data";
+import { clinics, dashboardMetrics, featuredCounties, medicines } from "@/data/mock-data";
 import { cn } from "@/lib/utils";
 
 export default function Home() {
@@ -15,16 +16,21 @@ export default function Home() {
       <section className="animate__animated animate__fadeInUp animate__faster grid gap-6 rounded-[2rem] border border-teal-100 bg-white/95 p-8 shadow-[0_24px_60px_-40px_rgba(15,118,110,0.45)] lg:grid-cols-[1.4fr_0.9fr]">
         <div className="space-y-6">
           <Badge className="rounded-full bg-teal-100 px-3 py-1 text-teal-900 hover:bg-teal-100">
-            SDG 3 health access prototype
+            SDG 3 healthcare access navigator
           </Badge>
           <div className="space-y-4">
+            <div className="space-y-1">
+              <p className="text-sm font-medium uppercase tracking-[0.28em] text-teal-700">MediStock</p>
+              <p className="text-sm text-slate-500">Kenya health access and demo supply navigator</p>
+            </div>
             <h1 className="max-w-2xl text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">
-              Find nearby medicine and vaccine stock with more clarity and less friction.
+              Identify Kenya health facilities that match the care you need.
             </h1>
             <p className="max-w-2xl text-lg leading-8 text-slate-600">
-              MediStock helps citizens locate available essentials and gives clinics a
-              simple way to share inventory updates, request support, and surface
-              shortage risks early.
+              MediStock helps people navigate urban and rural healthcare access by
+              matching health needs to facilities, showing service availability notes,
+              and helping users compare suitable options with clearly labeled
+              demo inventory.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
@@ -48,6 +54,13 @@ export default function Home() {
               It does not replace advice from a doctor, pharmacist, or nurse.
             </p>
           </div>
+          <div className="flex flex-wrap gap-2">
+            {featuredCounties.map((county) => (
+              <Badge key={county} variant="outline" className="border-teal-200 bg-teal-50 text-teal-800">
+                {county}
+              </Badge>
+            ))}
+          </div>
         </div>
         <Card className="border-none bg-gradient-to-br from-teal-600 via-cyan-600 to-sky-700 text-white shadow-none">
           <CardHeader>
@@ -56,27 +69,28 @@ export default function Home() {
           <CardContent className="space-y-5">
             <div className="grid gap-3">
               <div className="flex items-center justify-between rounded-2xl bg-white/12 px-4 py-3">
-                <span>Nearby clinics</span>
+                <span>Sample facilities</span>
                 <span className="text-xl font-semibold">{clinics.length}</span>
               </div>
               <div className="flex items-center justify-between rounded-2xl bg-white/12 px-4 py-3">
-                <span>Tracked medicines</span>
+                <span>Essential medicines</span>
                 <span className="text-xl font-semibold">{medicines.length}</span>
               </div>
             </div>
             <Separator className="bg-white/20" />
+            <DemoInventoryBadge />
             <div className="grid gap-3 text-sm text-white/90">
               <div className="flex items-center gap-3">
                 <Hospital className="size-4" />
-                Clinics can publish low-stock alerts clearly.
+                Facility names reflect Kenya-focused demo access points in urban and rural settings.
               </div>
               <div className="flex items-center gap-3">
                 <PackageSearch className="size-4" />
-                Citizens can compare locations before traveling.
+                Citizens can compare facilities before traveling.
               </div>
               <div className="flex items-center gap-3">
                 <Pill className="size-4" />
-                Inventory language stays simple and non-diagnostic.
+                Medicine stock remains simulated and not real-time.
               </div>
             </div>
           </CardContent>
@@ -98,7 +112,7 @@ export default function Home() {
         {[
           {
             title: "Find Medicine",
-            description: "Browse essentials by clinic, distance, and stock status.",
+            description: "Browse essential medicines by Kenya facility, county, and stock status.",
             href: "/find-medicine",
           },
           {
@@ -110,6 +124,11 @@ export default function Home() {
             title: "Education",
             description: "Share plain-language guidance and route emergencies correctly.",
             href: "/education",
+          },
+          {
+            title: "Data Sources",
+            description: "Review what is real location data, what is demo stock, and what is not medical advice.",
+            href: "/data-sources",
           },
         ].map((item) => (
           <Card key={item.href} className="border-slate-200 bg-white/90 shadow-sm">

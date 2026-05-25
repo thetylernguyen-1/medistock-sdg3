@@ -10,8 +10,8 @@ export default function ClinicsPage() {
       <div className="space-y-2">
         <h1 className="text-3xl font-semibold tracking-tight text-slate-950">Clinics</h1>
         <p className="max-w-3xl text-slate-600">
-          Browse participating facilities and open each clinic profile for a simple
-          inventory snapshot.
+          Browse Kenya-focused demo facilities across urban and rural areas and open each
+          profile to review services, availability notes, and simulated inventory.
         </p>
       </div>
       <div className="grid gap-4 lg:grid-cols-2">
@@ -23,11 +23,19 @@ export default function ClinicsPage() {
                   <CardTitle>{clinic.name}</CardTitle>
                   <p className="mt-1 text-sm text-slate-500">{clinic.area}</p>
                 </div>
-                <Badge className="bg-sky-100 text-sky-900">{clinic.distanceKm.toFixed(1)} km</Badge>
+                <div className="flex flex-wrap justify-end gap-2">
+                  <Badge className="bg-sky-100 text-sky-900">{clinic.facilityType}</Badge>
+                  <Badge variant="outline" className="border-teal-200 text-teal-800">
+                    {clinic.county}
+                  </Badge>
+                </div>
               </div>
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-sm text-slate-600">{clinic.address}</p>
+              {clinic.ownership ? (
+                <p className="text-sm text-slate-500">Ownership: {clinic.ownership}</p>
+              ) : null}
               <div className="flex flex-wrap gap-2">
                 {clinic.services.map((service) => (
                   <Badge key={service} variant="outline" className="border-teal-200 text-teal-800">
@@ -35,6 +43,7 @@ export default function ClinicsPage() {
                   </Badge>
                 ))}
               </div>
+              <p className="text-xs text-slate-500">Source: {clinic.source}</p>
               <Link href={`/clinics/${clinic.id}`} className="text-sm font-medium text-teal-700 hover:text-teal-900">
                 View clinic detail
               </Link>

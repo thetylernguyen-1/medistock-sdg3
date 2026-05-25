@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { DemoInventoryBadge } from "@/components/cards/demo-inventory-badge";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -31,14 +32,28 @@ export default async function ClinicDetailPage({ params }: ClinicDetailPageProps
         <div>
           <h1 className="text-3xl font-semibold tracking-tight text-slate-950">{clinic.name}</h1>
           <p className="mt-2 text-slate-600">
-            {clinic.address} · {clinic.area} · {clinic.phone}
+            {clinic.address} · {clinic.area}
           </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <Badge className="bg-sky-100 text-sky-900">{clinic.facilityType}</Badge>
+            <Badge variant="outline" className="border-teal-200 text-teal-800">
+              {clinic.county}
+            </Badge>
+            {clinic.ownership ? (
+              <Badge variant="outline" className="border-slate-200 text-slate-700">
+                {clinic.ownership}
+              </Badge>
+            ) : null}
+          </div>
         </div>
       </div>
 
       <Card className="border-slate-200 bg-white/95 shadow-sm">
         <CardHeader>
-          <CardTitle>Services and stock summary</CardTitle>
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <CardTitle>Services and stock summary</CardTitle>
+            <DemoInventoryBadge />
+          </div>
         </CardHeader>
         <CardContent className="space-y-5">
           <div className="flex flex-wrap gap-2">
@@ -57,23 +72,30 @@ export default async function ClinicDetailPage({ params }: ClinicDetailPageProps
                     <h2 className="font-medium text-slate-900">{item.medicineName}</h2>
                     <p className="text-sm text-slate-500">Updated {item.updatedAt}</p>
                   </div>
-                  <Badge
-                    className={
-                      item.status === "In Stock"
-                        ? "bg-emerald-100 text-emerald-900"
-                        : item.status === "Low Stock"
-                          ? "bg-amber-100 text-amber-900"
-                          : "bg-rose-100 text-rose-900"
-                    }
-                  >
-                    {item.status}
-                  </Badge>
+                  <div className="flex flex-wrap justify-end gap-2">
+                    <Badge
+                      className={
+                        item.status === "In Stock"
+                          ? "bg-emerald-100 text-emerald-900"
+                          : item.status === "Low Stock"
+                            ? "bg-amber-100 text-amber-900"
+                            : "bg-rose-100 text-rose-900"
+                      }
+                    >
+                      {item.status}
+                    </Badge>
+                    <DemoInventoryBadge />
+                  </div>
                 </div>
                 <p className="mt-4 text-3xl font-semibold text-slate-900">{item.quantity}</p>
-                <p className="text-sm text-slate-500">Units currently recorded</p>
+                <p className="text-sm text-slate-500">Simulated units currently recorded</p>
               </div>
             ))}
           </div>
+          <p className="text-xs text-slate-500">
+            Facility details are part of the MediStock Kenya demo dataset. Inventory figures are
+            demo-only and do not reflect real-time stock.
+          </p>
         </CardContent>
       </Card>
     </div>
